@@ -1,0 +1,14 @@
+.connection-card {
+  text-align: center;
+  margin: 10% auto;
+}
+
+.connection-card.mdl-card {
+  width: 320px;
+  height: 320px;
+}
+
+.connection-card > .mdl-card__title {
+  color: #fff;
+  background-color: #3E4EB8;
+}
