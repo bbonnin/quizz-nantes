@@ -1,14 +1,44 @@
-.connection-card {
-  text-align: center;
-  margin: 10% auto;
+.connection-card, .wait-card {
+    text-align: center;
+    margin: 10% auto;
 }
 
 .connection-card.mdl-card {
-  width: 320px;
-  height: 320px;
+    width: 320px;
+    height: 320px;
 }
 
 .connection-card > .mdl-card__title {
+    color: #fff;
+    background-color: #3E4EB8;
+}
+
+.wait-card.mdl-card {
+    max-width: 600px;
+    color: #fff;
+    background: #3E4EB8;
+}
+
+.wait-card > .mdl-card__actions {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.wait-card > .mdl-card__title {
+  align-items: flex-start;
+}
+
+.wait-card > .mdl-card__title > h4 {
+  margin-top: 0;
+}
+
+.wait-card > .mdl-card__actions {
+  display: flex;
+  box-sizing:border-box;
+  align-items: center;
+}
+
+.wait-card > .mdl-card__title,
+.wait-card > .mdl-card__actions,
+.wait-card > .mdl-card__actions > .mdl-button {
   color: #fff;
-  background-color: #3E4EB8;
 }

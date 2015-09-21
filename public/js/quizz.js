@@ -59,15 +59,26 @@ quizzApp.config(['$routeProvider', function($routeProvider){
 quizzApp.controller('quizzController', function($scope, socket) {
 
     $scope.connected = false;
-    $scope.wait = false;
 
-    socket.on('wait', function(data){
-        console.log('wait event received : data=' + JSON.stringify(data));
-    });
+    socket.on('quizz started', function (data) {
+        console.log('quizz started event received : data=' + JSON.stringify(data));
+        $scope.message = data.msg;
+        $scope.waitMessage = undefined;
+    });  
+
+    socket.on('quizz not started', function (data) {
+        console.log('quizz not started event received : data=' + JSON.stringify(data));
+        $scope.waitMessage = data.msg;
+    });  
 
     $scope.connect = function () {
         socket.emit('user connect', $scope.nickname);
         $scope.connected = true;
+    };
+
+    $scope.disconnect = function () {
+        socket.emit('user disconnect', $scope.nickname);
+        $scope.connected = false;
     };
     
 });
