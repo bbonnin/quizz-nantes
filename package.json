@@ -1,11 +1,10 @@
 {
-  "name": "socket-chat-example",
+  "name": "quizz-nantes",
   "version": "0.0.1",
-  "description": "my first socket.io app",
+  "description": "quizz-nantes",
   "dependencies": {
     "express": "4.10.2",
+    "body-parser": "1.14.0",
     "socket.io": "1.2.0"
   }
 }
-
-
