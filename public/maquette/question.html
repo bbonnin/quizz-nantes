@@ -1,0 +1,148 @@
+<!doctype html>
+<html ng-app="quizzApp">
+
+<head>
+    <title>Quizz</title>
+
+    <link rel="stylesheet" href="//storage.googleapis.com/code.getmdl.io/1.0.4/material.indigo-pink.min.css">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+    <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">-->
+    <link rel="stylesheet" href="/css/quizz.css">
+</head>
+
+<body ng-controller="quizzController">
+
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-route.min.js"></script>
+<script src="//cdn.socket.io/socket.io-1.2.0.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.js"></script>
+<script src="//storage.googleapis.com/code.getmdl.io/1.0.4/material.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
+
+<script src="/js/quizz.js"></script>
+
+
+<!------------- Before this line it is bullshit ------------------------------------------------>
+
+<header class="mdl-layout__header">
+    <div class="mdl-layout__header-row">
+        <span class="mdl-layout-title">Naoned Quizz</span>
+
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <a class="mdl-navigation__link" href="" ng-click="disconnect()">Quitter</a>
+        </nav>
+    </div>
+</header>
+
+
+<div id="connectionPart" ng-show="!connected">
+    <div class="mdl-grid">
+
+    </div>
+
+    <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--9-col">
+            <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--12-col">
+                    <h4>
+                        <!-- FIXME Varibilisaton -->
+                        Jules Verne, né le 8 février 1828 à Nantes en France et mort le 24 mars 1905 à Amiens en France,
+                        est un écrivain français dont l'œuvre est, pour la plus grande partie, constituée de romans
+                        d'aventures et de science-fiction (ou d'anticipation).
+
+                        En 1863 paraît chez l'éditeur Pierre-Jules Hetzel (1814-1886) son premier roman Cinq semaines en
+                        ballon, qui connaît un très grand succès y compris à l'étranger. Lié à l'éditeur par un contrat
+                        de vingt ans, Jules Verne travaillera en fait pendant quarante ans à ses Voyages
+                        extraordinaires,... </h4>
+                    <!-- MDL Progress Bar with Buffering -->
+                    <div id="p3" class="mdl-progress mdl-js-progress" style="width: 100%; height: 30px;"></div>
+                    <!-- FIXME Varibilisaton -->
+                    <script>
+                        document.querySelector('#p3').addEventListener('mdl-componentupgraded', function () {
+                            this.MaterialProgress.setProgress(33);
+                            this.MaterialProgress.setBuffer(100);
+                        });
+                    </script>
+                </div>
+
+            </div>
+            <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--4-col">
+                    <div class="demo-card-wide mdl-card mdl-shadow--2dp" style="width: 95%;">
+                        <div class="mdl-card__actions mdl-card--border" ng-show="!answer">
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent"
+                                    style="width: 100%">
+                                Choisir
+                            </button>
+                        </div>
+                        <div class="mdl-card__title">
+                            <h2 class="mdl-card__title-text">Bd des poilus</h2>
+                        </div>
+                        <div class="mdl-card__supporting-text" ng-show="answer">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Mauris sagittis pellentesque lacus eleifend lacinia...
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="mdl-cell mdl-cell--4-col">
+                    <div class="demo-card-wide mdl-card mdl-shadow--2dp" style="width: 95%; background: #46B6AC;">
+                        <div class="mdl-card__actions mdl-card--border" ng-show="!answer">
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent"
+                                    style="width: 100%">
+                                Choisir
+                            </button>
+                        </div>
+                        <div class="mdl-card__title">
+                            <h2 class="mdl-card__title-text">Bd Jules Vernes</h2>
+                        </div>
+                        <div class="mdl-card__supporting-text" ng-show="answer">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Mauris sagittis pellentesque lacus eleifend lacinia...
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="mdl-cell mdl-cell--4-col">
+                    <div class="demo-card-wide mdl-card mdl-shadow--2dp" style="width: 95%;">
+                        <div class="mdl-card__actions mdl-card--border" ng-show="!answer">
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent"
+                                    style="width: 100%">
+                                Choisir
+                            </button>
+                        </div>
+                        <div class="mdl-card__title">
+                            <h2 class="mdl-card__title-text">Bd du Maréchal Foch</h2>
+                        </div>
+                        <div class="mdl-card__supporting-text" ng-show="answer">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Mauris sagittis pellentesque lacus eleifend lacinia...
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+        <div class="mdl-cell mdl-cell--3-col">
+            <h4><i class="material-icons">looks_one</i>Bob le terrible</h4>
+
+            <h4><i class="material-icons">looks_two</i>Nicky la fouine</h4>
+
+            <h4><i class="material-icons">looks_3</i>Michel</h4>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+

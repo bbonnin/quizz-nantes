@@ -59,6 +59,8 @@ quizzApp.config(['$routeProvider', function($routeProvider){
 quizzApp.controller('quizzController', function($scope, socket) {
 
     $scope.connected = false;
+    $scope.answer = false;
+
 
     socket.on('quizz started', function (data) {
         console.log('quizz started event received : data=' + JSON.stringify(data));
