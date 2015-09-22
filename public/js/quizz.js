@@ -157,8 +157,12 @@ quizzApp.controller('quizzController', function($scope, socket) {
             $scope.state.end_question = true;
             $scope.state.answer_question = false;
             $scope.answers = data.answers;
+            $scope.userAnswers = [];
             //FIXME Est ce vraiment la meme chose ?
-            $scope.userAnswers = data.winners;
+            angular.forEach(data.winners, function (user, key) {
+                $scope.userAnswers.push(user.nickname);
+            });
+
         }else{
             $scope.reinit_state('question answer was not expected');
         }
