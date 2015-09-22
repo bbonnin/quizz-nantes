@@ -109,6 +109,7 @@ quizzApp.controller('quizzController', function($scope, socket) {
     $scope.disconnect = function () {
         socket.emit('user disconnect', $scope.nickname);
         $scope.connected = false;
+        $scope.events = [];
     };
 
     $scope.answer = function () {

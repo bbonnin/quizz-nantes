@@ -87,21 +87,23 @@ io.on('connection', function(socket) {
 
 
     socket.on('user connect', function(nickname) {
-        console.log(' * new user : ' + nickname);
+        console.log(' << new user : ' + nickname);
         socket.nickname = nickname;
         users[nickname] = { nickname : nickname, score : 0, socketId: socket.id };
 
         if (quizzStarted) {
-            socket.emit('quizz started', { 
+            /*socket.emit('quizz started', { 
                 msg: 'Un quizz est démarré, vous commencerez avec la prochaine question',
-                users: users });
+                users: users });*/
         }
         else {
             if (_.size(users) == 1) {
                 // Start a timer, after the end of it, the quizz will start
-                timeoutQuizzStart = setTimeout(startQuizz, 10000);    
+                setTimeout(startQuizz, 10000);  
+                timeoutQuizzStart = { start: Date.now(), delay: 10000 };
             }
 
+            console.log(' >> quizz not started');
             socket.emit('quizz not started', {
                 msg: 'Le quizz va bienôt démarrer, merci de patienter',
                 users: users,
@@ -110,8 +112,10 @@ io.on('connection', function(socket) {
     });
 
     socket.on('user disconnect', function(nickname) {
-        console.log(' * user left : ' + nickname);
+        console.log(' << user disconnect : ' + nickname);
         delete users[nickname];
+
+        console.log(' >> user list : ' + nickname);
         socket.broadcast.emit('user list', {
             users: users
         });
@@ -122,7 +126,7 @@ io.on('connection', function(socket) {
     });
 
     socket.on('user answer', function (userAnswer) {
-        console.log(' * user answer : ' + userAnswer);
+        console.log(' << user answer : ' + userAnswer);
         // userAnswer.answerId, userAnswer.nickname
         if (questionTimeout) { // Answers are still accepted
             userAnswers.push(userAnswer);
@@ -152,34 +156,41 @@ function reinitQuizz() {
 }
 
 function startQuizz() {
+    console.log(' >> start quizz');
     quizzStarted = true;
     io.sockets.emit('quizz started', {
         msg: 'Le quizz démarre !'
     });
 
-    questionTimeout = setTimeout(sendQuestion, 5000);
+    setTimeout(sendQuestion, 5000);
+    
 }
 
 function sendQuestion() {
+    console.log(' >> new question');
     io.sockets.emit('new question', { 
         question: questions[++currentQuestionId].question,
         timeleft: questionTime
     });
 
     setTimeout(processQuestionTimeout, 1000);
+    questionTimeout = { start: Date.now(), delay: questionTime * 1000 };
 }
 
 function processQuestionTimeout() {
     var timeleft = getTimeLeft(questionTimeout);
+    console.log(' * question timeleft : ' + timeleft);
     if (timeleft <= 0) { // No more time
         questionTimeout = undefined;
         var winners = processUserAnswers();
+        console.log(' >> question answer');
         io.sockets.emit('question answer', {
-             answer: questions[++currentQuestionId].answer,
+             answer: questions[currentQuestionId].answer,
              winners: winners
         });
 
         if (currentQuestionId+1 === questions.length) {
+            console.log(' >> end quizz');
             io.sockets.emit('end quizz', users);
             reinitQuizz();
         }
@@ -189,7 +200,10 @@ function processQuestionTimeout() {
     }
     else {
         var percent = 100 - (100 * (questionTime - timeleft) / questionTime); // Pfffffffffffffffff...
+        console.log(' >> question timeleft');
         io.sockets.emit('question timeleft', { timeleft: timeleft, percent: percent , userAnswers: userAnswers });
+        setTimeout(processQuestionTimeout, 1000);
+
     }
     
 }
@@ -216,13 +230,15 @@ function processUserAnswers() {
 //----------------------------------------------
 
 function getTimeLeft(timeout) {
-    console.log(' * getTimeLeft : ' + timeout);
     if (timeout) {
-        return Math.ceil((timeout._idleStart + timeout._idleTimeout - Date.now()) / 1000);
+        var now = Date.now();
+        var timeleft = Math.ceil((timeout.start + timeout.delay - now) / 1000);
+        console.log(' * timeleft: ' + timeleft + ' sec');
+        //return Math.ceil((timeout._idleStart + timeout._idleTimeout - Date.now()) / 1000);
+        return timeleft;
     }
     return 0;
 }
-
 
 
 /* TODO
