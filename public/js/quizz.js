@@ -167,6 +167,25 @@ quizzApp.controller('quizzController', function($scope, socket) {
 
     //Non managed methods
     $scope.events = [];
+
+    $scope.connect_test = function () {
+        $scope.nickname = 'anonymous_' + Date.now();
+        socket.emit('user connect', $scope.nickname);
+    };
+
+    $scope.disconnect_test = function () {
+        socket.emit('user disconnect', $scope.nickname);
+        $scope.events = [];
+    };
+
+    $scope.answer_test = function () {
+        socket.emit('user answer', { answerId: 0, nickname: $scope.nickname });
+    };
+
+    $scope.play_test = function () {
+        socket.emit('play quizz');
+    };
+
     socket.on('quizz started', function (data) {
         console.log(' * quizz started event received : data=' + JSON.stringify(data));
         $scope.message = data.msg;

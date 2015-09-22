@@ -85,6 +85,22 @@ io.on('connection', function(socket) {
     //  - End of the game:
     //    >> end quizz
 
+    socket.on('play quizz', function() {
+
+        if (!quizzStarted) {
+            if (!timeoutQuizzStart) {
+                // Start a timer, after the end of it, the quizz will start
+                setTimeout(startQuizz, 10000);  
+                timeoutQuizzStart = { start: Date.now(), delay: 10000 };
+            }
+
+            console.log(' >> quizz not started');
+            socket.emit('quizz not started', {
+                msg: 'Le quizz va bienôt démarrer, merci de patienter',
+                users: users,
+                startIn:  getTimeLeft(timeoutQuizzStart) });
+        }
+    });
 
     socket.on('user connect', function(nickname) {
         console.log(' << new user : ' + nickname);
@@ -201,11 +217,27 @@ function processQuestionTimeout() {
     else {
         var percent = 100 - (100 * (questionTime - timeleft) / questionTime); // Pfffffffffffffffff...
         console.log(' >> question timeleft');
-        io.sockets.emit('question timeleft', { timeleft: timeleft, percent: percent , userAnswers: userAnswers });
+        io.sockets.emit('question timeleft', { timeleft: timeleft, percent: percent , userAnswers: getUsersWithGoodAnswer() });
         setTimeout(processQuestionTimeout, 1000);
 
     }
 
+}
+
+function getUsersWithGoodAnswer() {
+    console.log(' * getUsersWithGoodAnswer')
+    var usersWithGoodAnswer = [];
+
+    _.forEach(userAnswers, function (userAnswer) {
+        if (userAnswer.answerId === questions[currentQuestionId].answer.id) {
+            usersWithGoodAnswer.push(userAnswer.nickname);
+        }
+    });
+
+console.log(' * getUsersWithGoodAnswer' + usersWithGoodAnswer);
+
+
+    return usersWithGoodAnswer;    
 }
 
 function processUserAnswers() {
