@@ -169,6 +169,9 @@ function reinitQuizz() {
     _.forEach(users, function (user) {
         user.score = 0;
     });
+
+    setTimeout(startQuizz, 30000);  
+    timeoutQuizzStart = { start: Date.now(), delay: 30000 };
 }
 
 function startQuizz() {
@@ -227,7 +230,6 @@ function processQuestionTimeout() {
 }
 
 function getUsersWithGoodAnswer() {
-    console.log(' * getUsersWithGoodAnswer')
     var usersWithGoodAnswer = [];
 
     _.forEach(userAnswers, function (userAnswer) {
@@ -235,9 +237,6 @@ function getUsersWithGoodAnswer() {
             usersWithGoodAnswer.push(userAnswer.nickname);
         }
     });
-
-console.log(' * getUsersWithGoodAnswer' + usersWithGoodAnswer);
-
 
     return usersWithGoodAnswer;    
 }
