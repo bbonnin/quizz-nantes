@@ -42,6 +42,9 @@
 .wait-card > .mdl-card__actions > .mdl-button {
   color: #fff;
 }
+.mdl-progress-haute > .mdl-progress {
+    height: 30px;
+}
 
 .good_card{
     background: #46B6AC;

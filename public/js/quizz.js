@@ -70,7 +70,7 @@ quizzApp.controller('quizzController', function($scope, socket) {
     $scope.userAnswers = [];
     $scope.answerId = -1;
     $scope.goodAnswerId = -1;
-    $scope.winners;
+    $scope.winner;
 
     //$scope.progress = 0;
 
@@ -94,7 +94,7 @@ quizzApp.controller('quizzController', function($scope, socket) {
             $scope.goodAnswerId = -1;
             $scope.answerId = -1;
             $scope.question = data.question;
-
+            $scope.userAnswers = [];
             //Update progress bar
             $scope.update_time_left(100);
 
@@ -142,6 +142,7 @@ quizzApp.controller('quizzController', function($scope, socket) {
             //TODO Desactivate answares
             $scope.state.question = false;
             $scope.state.answer_question = true;
+
         }
     };
 
@@ -154,8 +155,10 @@ quizzApp.controller('quizzController', function($scope, socket) {
             $scope.goodAnswerId = data.answer.id;
             $scope.state.question = false;
             $scope.state.end_question = true;
+            $scope.state.answer_question = false;
             $scope.answers = data.answers;
-            $scope.winners = data.winners;
+            //FIXME Est ce vraiment la meme chose ?
+            $scope.userAnswers = data.winners;
         }else{
             $scope.reinit_state('question answer was not expected');
         }
@@ -169,6 +172,15 @@ quizzApp.controller('quizzController', function($scope, socket) {
             //TODO Extract winner
             $scope.state.end_quiz = true;
             $scope.state.end_question = false;
+            $scope.state.answer_question = false;
+            var maxScore = -1;
+            angular.forEach(data, function (user, key) {
+                if(user.score > maxScore){
+                    maxScore = user.score;
+                    $scope.winner = user;
+                }
+            });
+
 
         }else{
             $scope.reinit_state('end quizz was not expected');
