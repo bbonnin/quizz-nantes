@@ -8,7 +8,43 @@ var express = require('express'),
 var users = {};
 var quizzStarted = false;
 var timeoutQuizzStart = undefined;
-var questionId = 0;
+var questionTimeout = undefined;
+var currentQuestionId = -1;
+var questions = [{    
+    question: {
+        intitule: "blablabla",
+        wikipediaUrl: "https://fr.wikipedia.org/w/api.php?action=query&format=json&titles=Jules%20Verne&prop=extracts&explaintext=true&exintro=true",
+        removeTerms: ["jules", "verne"],
+        answers: [
+            "Jules Verne",
+            "Jules Ferry",
+            "Jules IenneDeLegumes"
+        ]
+    },
+    answer: {
+        id: 0,
+        link: 'https://www.google.fr/',
+        streetView: 'http://streetviewing.fr/'
+    }
+}, {
+    question: {
+        intitule: "blobloblo",
+        wikipediaUrl: "https://fr.wikipedia.org/w/api.php?action=query&format=json&titles=Marc%20Caro&prop=extracts&explaintext=true&exintro=true",
+        removeTerms: ["marc", "caro"],
+        answers: [
+            "Marc Caro",
+            "Marc Unbut",
+            "Marc DeCafé"
+        ]
+    },
+    answer: {
+        id: 0,
+        link: 'https://www.google.fr/',
+        streetView: 'http://streetviewing.fr/'
+    }
+}];
+var userAnswers = [];
+
 
 // Express configuration
 //
@@ -45,7 +81,6 @@ io.on('connection', function(socket) {
     //    >> new question
     //    >> question timeleft
     //    >> question answer
-    //    >> users answers
     //  - End of the game:
     //    >> end quizz
 
@@ -87,6 +122,13 @@ io.on('connection', function(socket) {
 
     socket.on('user answer', function (userAnswer) {
         console.log(' * user answer : ' + userAnswer);
+        // userAnswer.answerId, userAnswer.nickname
+        if (questionTimeout) { // Answers are still accepted
+            userAnswers.push(userAnswer);
+        }
+        else {
+            console.log(' * too late for ' + userAnswer.nickname);
+        }
     });
 
 });
@@ -96,9 +138,16 @@ io.on('connection', function(socket) {
 //----------------------------------------------
 function reinitQuizz() {
     console.log(' * reinit quizz');
+
     quizzStarted = false;
     timeoutQuizzStart = undefined;
-    questionId = 0;
+    questionTimeout = undefined;
+    currentQuestionId = -1;
+    userAnswers = [];
+
+    _.forEach(users, function (user) {
+        user.score = 0;
+    });
 }
 
 function startQuizz() {
@@ -111,33 +160,53 @@ function startQuizz() {
 }
 
 function sendQuestion() {
-    io.sockets.emit('new question', {
-        questionId: ++questionId,
-        question: 'Oh la belle question',
-        responses: [
-            { response: 'une belle réponse' },
-            { response: 'une autre réponse (moins belle)' },
-            { response: 'la bonne réponse' }
-        ],
+    io.sockets.emit('new question', { 
+        question: questions[++currentQuestionId].question,
         timeleft: 10
     });
 
-    setTimeout(sendQuestionTimeLeft, 1000);
+    setTimeout(processQuestionTimeout, 1000);
 }
 
-function sendQuestionTimeLeft() {
+function processQuestionTimeout() {
     var timeleft = getTimeLeft(questionTimeout);
-    if (timeleft <= 0) {
+    if (timeleft <= 0) { // No more time
+        questionTimeout = undefined;
+        var winners = processUserAnswers();
         io.sockets.emit('question answer', {
-            id: 1,
-            link: '',
-            streetView: ''  
+             answer: questions[++currentQuestionId].answer,
+             winners: winners
         });
+
+        if (currentQuestionId +1 === questions.length) {
+            io.sockets.emit('end quizz', users);
+            reinitQuizz();
+        }
+        else {
+            setTimeout(sendQuestion, 5000);
+        }
     }
     else {
         io.sockets.emit('question timeleft', { timeleft : timeleft });
     }
     
+}
+
+function processUserAnswers() {
+    var score = 5;
+    var winners = [];
+
+    _.forEach(userAnswers, function (userAnswer) {
+        if (userAnswer.answerId === questions[currentQuestionId].answer.id) {
+            users[userAnswer.nickname].score += score;
+            winners.push(users[userAnswer.nickname]);
+            score -= 2;
+        }
+    });
+
+    userAnswers = [];
+
+    return winners;
 }
 
 //----------------------------------------------
@@ -147,3 +216,8 @@ function sendQuestionTimeLeft() {
 function getTimeLeft(timeout) {
     return Math.ceil((timeout._idleStart + timeout._idleTimeout - Date.now()) / 1000);
 }
+
+
+
+/* TODO
+*/ 

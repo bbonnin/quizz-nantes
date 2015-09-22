@@ -3,11 +3,12 @@
 ## Install
 - npm install
 
-## Material Design
+## UI
 - https://www.google.com/design/icons/
 - http://www.getmdl.io/
 - https://github.com/google/material-design-lite
 - http://materializecss.com/
+- http://www.iconarchive.com/
 
 ## Socket.io
 - http://socket.io/
@@ -16,3 +17,6 @@
 
 ## NodeJS
 - https://nodejs.org/en/
+
+## Sources de données
+- https://fr.wikipedia.org/wiki/Liste_de_personnes_n%C3%A9es_%C3%A0_Nantes
