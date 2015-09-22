@@ -30,9 +30,9 @@
         <li ng-repeat="event in events">{{event.name}} : {{event.data}}</li>
       </ul>
       
-      <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" ng-click="connect()">
-        <i class="material-icons">add</i>
-      </button>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="connect()">Connect</button>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="disconnect()">Disconnect</button>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="answer()">Answer</button>
     </div>
 
   </body>

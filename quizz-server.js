@@ -5,6 +5,7 @@ var express = require('express'),
     port = 8000,
     _ = require('lodash');
 
+var questionTime = 10; // 10 sec
 var users = {};
 var quizzStarted = false;
 var timeoutQuizzStart = undefined;
@@ -162,7 +163,7 @@ function startQuizz() {
 function sendQuestion() {
     io.sockets.emit('new question', { 
         question: questions[++currentQuestionId].question,
-        timeleft: 10
+        timeleft: questionTime
     });
 
     setTimeout(processQuestionTimeout, 1000);
@@ -178,7 +179,7 @@ function processQuestionTimeout() {
              winners: winners
         });
 
-        if (currentQuestionId +1 === questions.length) {
+        if (currentQuestionId+1 === questions.length) {
             io.sockets.emit('end quizz', users);
             reinitQuizz();
         }
@@ -187,7 +188,8 @@ function processQuestionTimeout() {
         }
     }
     else {
-        io.sockets.emit('question timeleft', { timeleft : timeleft });
+        var percent = 100 - (100 * (questionTime - timeleft) / questionTime); // Pfffffffffffffffff...
+        io.sockets.emit('question timeleft', { timeleft: timeleft, percent: percent , userAnswers: userAnswers });
     }
     
 }
@@ -214,7 +216,11 @@ function processUserAnswers() {
 //----------------------------------------------
 
 function getTimeLeft(timeout) {
-    return Math.ceil((timeout._idleStart + timeout._idleTimeout - Date.now()) / 1000);
+    console.log(' * getTimeLeft : ' + timeout);
+    if (timeout) {
+        return Math.ceil((timeout._idleStart + timeout._idleTimeout - Date.now()) / 1000);
+    }
+    return 0;
 }
 
 
