@@ -60,8 +60,13 @@ quizzApp.controller('quizzController', function($scope, socket) {
 
     $scope.connected = false;
     $scope.answer = false;
+
     $scope.nickname = 'anonymous_' + new Date().getTime();
     $scope.events = [];
+
+    $scope.state = {login_in : true, waiting_quizz : false, waiting_question : false, answer_question : false, end_quiz : false};
+
+
 
     socket.on('quizz started', function (data) {
         console.log(' * quizz started event received : data=' + JSON.stringify(data));
