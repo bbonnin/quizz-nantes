@@ -1,12 +1,13 @@
 {
-  "name": "quizz-nantes",
+  "name": "mille-sabords",
   "version": "0.0.1",
-  "description": "quizz-nantes",
+  "description": "test ",
   "dependencies": {
     "express": "4.10.2",
     "body-parser": "1.14.0",
     "socket.io": "1.2.0",
     "lodash": "3.10.1",
     "mongodb": "2.0.43"
-  }
+  },
+  "main": "quizz-server.js"
 }
