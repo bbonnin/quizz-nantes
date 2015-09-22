@@ -171,7 +171,7 @@ function sendQuestion() {
 
 function processQuestionTimeout() {
     var timeleft = getTimeLeft(questionTimeout);
-    if (timeleft <= 0) { // No more time
+    /*if (timeleft <= 0) { // No more time
         questionTimeout = undefined;
         var winners = processUserAnswers();
         io.sockets.emit('question answer', {
@@ -187,10 +187,16 @@ function processQuestionTimeout() {
             setTimeout(sendQuestion, 5000);
         }
     }
+
     else {
         var percent = 100 - (100 * (questionTime - timeleft) / questionTime); // Pfffffffffffffffff...
         io.sockets.emit('question timeleft', { timeleft: timeleft, percent: percent , userAnswers: userAnswers });
     }
+
+    else {*/
+        io.sockets.emit('question timeleft', { timeleft : timeleft });
+    //}
+
     
 }
 
