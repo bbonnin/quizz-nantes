@@ -69,6 +69,7 @@ quizzApp.controller('quizzController', function($scope, socket) {
     $scope.question = {};
     $scope.userAnswers = [];
     $scope.answerId = -1;
+    $scope.goodAnswerId = -1;
     $scope.winners;
 
     //$scope.progress = 0;
@@ -90,10 +91,12 @@ quizzApp.controller('quizzController', function($scope, socket) {
         $scope.events.push({ name: 'new question', data: data });
         if($scope.state.waiting_quizz || $scope.state.end_question || $scope.state.end_quiz) {
             console.log('Showing question ' + JSON.stringify(data));
+            $scope.goodAnswerId = -1;
+            $scope.answerId = -1;
             $scope.question = data.question;
 
             //Update progress bar
-            $scope.update_time_left(0);
+            $scope.update_time_left(100);
 
             //Updating the page status
             $scope.state.waiting_quizz = false;
@@ -111,7 +114,7 @@ quizzApp.controller('quizzController', function($scope, socket) {
             this.MaterialProgress.setProgress(pct);
             this.MaterialProgress.setBuffer(100);
         });
-        progress_element.MaterialProgress.setProgress(70);
+        progress_element.MaterialProgress.setProgress(pct);
     }
 
     //Listening to update progress bar
@@ -120,9 +123,7 @@ quizzApp.controller('quizzController', function($scope, socket) {
         if($scope.state.question || $scope.state.answer_question) {
             console.log('Updating timeleft and winners  ' + JSON.stringify(data));
             $scope.userAnswers = data.userAnswers;
-            //$scope.update_time_left(data.timeleft);
-            //TODO Set a real timeleft
-            $scope.update_time_left(50);
+            $scope.update_time_left(data.percent);
         }else{
             console.log('question timeleft was not expected');
         }
@@ -147,8 +148,10 @@ quizzApp.controller('quizzController', function($scope, socket) {
     //Listening to end the question
     socket.on('question answer', function (data) {
         $scope.events.push({ name: 'question answer', data: data });
-        if($scope.state.question) {
+        if($scope.state.question || $scope.state.answer_question) {
             console.log('Question is over ' + JSON.stringify(data));
+            $scope.update_time_left(0);
+            $scope.goodAnswerId = data.answer.id;
             $scope.state.question = false;
             $scope.state.end_question = true;
             $scope.answers = data.answers;

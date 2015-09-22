@@ -65,7 +65,7 @@
 </div>
 
 <!------------------------------------------------ Question ------------------------------------------------>
-<div id="questionPart" ng-show="state.question || state.answer_question">
+<div id="questionPart" ng-show="state.question || state.answer_question || state.end_question">
     <div class="mdl-grid">
 
     </div>
@@ -83,7 +83,7 @@
             </div>
             <div class="mdl-grid">
                 <div class="mdl-cell mdl-cell--4-col">
-                    <div class="demo-card-wide mdl-card mdl-shadow--2dp" style="width: 95%;">
+                    <div class="demo-card-wide mdl-card mdl-shadow--2dp" style="width: 95%;" ng-class="{ 'good_card': 0 == goodAnswerId }">
                         <div class="mdl-card__actions mdl-card--border" >
                             <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent"
                                     ng-click="user_answer(0)" style="width: 100%" ng-show="state.question">
@@ -98,7 +98,7 @@
                 </div>
 
                 <div class="mdl-cell mdl-cell--4-col">
-                    <div class="demo-card-wide mdl-card mdl-shadow--2dp" style="width: 95%">
+                    <div class="demo-card-wide mdl-card mdl-shadow--2dp" style="width: 95%" ng-class="{ 'good_card': 1 == goodAnswerId }">
                         <div class="mdl-card__actions mdl-card--border">
                             <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent"
                                     ng-click="user_answer(1)" style="width: 100%"  ng-show="state.question">
@@ -113,7 +113,7 @@
                 </div>
 
                 <div class="mdl-cell mdl-cell--4-col">
-                    <div class="demo-card-wide mdl-card mdl-shadow--2dp" style="width: 95%;">
+                    <div class="demo-card-wide mdl-card mdl-shadow--2dp" style="width: 95%;" ng-class="{ 'good_card': 2 == goodAnswerId }">
                         <div class="mdl-card__actions mdl-card--border">
                             <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" ng-click="user_answer(2)" style="width: 100%"  ng-show="state.question">
                                 Choisir

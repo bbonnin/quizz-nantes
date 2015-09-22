@@ -42,3 +42,7 @@
 .wait-card > .mdl-card__actions > .mdl-button {
   color: #fff;
 }
+
+.good_card{
+    background: #46B6AC;
+}
