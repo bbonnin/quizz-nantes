@@ -64,13 +64,18 @@ quizzApp.controller('quizzController', function($scope, socket) {
     }
 
     $scope.reinit_state("Init controller");
-    $scope.message;
-    $scope.waitMessage;
+
     $scope.nickname;
     $scope.question = {};
-    $scope.answers;
+    $scope.userAnswers = [];
+    $scope.answerId = -1;
     $scope.winners;
-    $scope.progress = 0;
+
+    //$scope.progress = 0;
+
+    //Unused in UI for the moment
+    $scope.message;
+    $scope.waitMessage;
 
     //Connexion button
     $scope.connect = function () {
@@ -86,7 +91,11 @@ quizzApp.controller('quizzController', function($scope, socket) {
         if($scope.state.waiting_quizz || $scope.state.end_question || $scope.state.end_quiz) {
             console.log('Showing question ' + JSON.stringify(data));
             $scope.question = data.question;
+
+            //Update progress bar
             $scope.update_time_left(0);
+
+            //Updating the page status
             $scope.state.waiting_quizz = false;
             $scope.state.question = true;
         }else{
@@ -94,7 +103,7 @@ quizzApp.controller('quizzController', function($scope, socket) {
         }
     });
 
-
+    //Heler function for progress bar
     $scope.update_time_left = function(pct){
         console.log('uppdating status bar '+pct);
         var progress_element = document.querySelector('#p3');
@@ -104,12 +113,13 @@ quizzApp.controller('quizzController', function($scope, socket) {
         });
         progress_element.MaterialProgress.setProgress(70);
     }
+
     //Listening to update progress bar
     socket.on('question timeleft', function (data) {
         $scope.events.push({ name: 'question timeleft', data: data });
-        if($scope.state.question) {
+        if($scope.state.question || $scope.state.answer_question) {
             console.log('Updating timeleft and winners  ' + JSON.stringify(data));
-            //TODO Manage the winners
+            $scope.userAnswers = data.userAnswers;
             //$scope.update_time_left(data.timeleft);
             //TODO Set a real timeleft
             $scope.update_time_left(50);
@@ -119,13 +129,17 @@ quizzApp.controller('quizzController', function($scope, socket) {
     });
 
     //Clicking on anwser
-    $scope.user_answer = function () {
+    $scope.user_answer = function (id) {
         if($scope.state.answer_question){
             console.log('already answer');
         }else{
-            socket.emit('user answer', { answerId: 0, nickname: $scope.nickname });
+            console.log('answering ' + id);
+            socket.emit('user answer', { answerId: id, nickname: $scope.nickname });
             //Ask user to wait
+            //Save answer
+            $scope.answerId = id;
             //TODO Desactivate answares
+            $scope.state.question = false;
             $scope.state.answer_question = true;
         }
     };

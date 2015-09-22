@@ -84,58 +84,45 @@
             <div class="mdl-grid">
                 <div class="mdl-cell mdl-cell--4-col">
                     <div class="demo-card-wide mdl-card mdl-shadow--2dp" style="width: 95%;">
-                        <div class="mdl-card__actions mdl-card--border" ng-show="!answer">
+                        <div class="mdl-card__actions mdl-card--border" >
                             <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent"
-                                    style="width: 100%">
+                                    ng-click="user_answer(0)" style="width: 100%" ng-show="state.question">
                                 Choisir
                             </button>
+                            <span ng-show="state.answer_question && answerId == 0"><i class="material-icons">check_circle</i></span>
                         </div>
                         <div class="mdl-card__title">
-                            <h2 class="mdl-card__title-text">Bd des poilus</h2>
+                            <h2 class="mdl-card__title-text">{{question.answers[0]}}</h2>
                         </div>
-                        <div class="mdl-card__supporting-text" ng-show="answer">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Mauris sagittis pellentesque lacus eleifend lacinia...
-                        </div>
-
                     </div>
                 </div>
 
                 <div class="mdl-cell mdl-cell--4-col">
-                    <div class="demo-card-wide mdl-card mdl-shadow--2dp" style="width: 95%; background: #46B6AC;">
-                        <div class="mdl-card__actions mdl-card--border" ng-show="!answer">
+                    <div class="demo-card-wide mdl-card mdl-shadow--2dp" style="width: 95%">
+                        <div class="mdl-card__actions mdl-card--border">
                             <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent"
-                                    style="width: 100%">
+                                    ng-click="user_answer(1)" style="width: 100%"  ng-show="state.question">
                                 Choisir
                             </button>
+                            <span ng-show="state.answer_question && answerId == 1"><i class="material-icons">check_circle</i></span>
                         </div>
                         <div class="mdl-card__title">
-                            <h2 class="mdl-card__title-text">Bd Jules Vernes</h2>
+                            <h2 class="mdl-card__title-text">{{question.answers[1]}}</h2>
                         </div>
-                        <div class="mdl-card__supporting-text" ng-show="answer">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Mauris sagittis pellentesque lacus eleifend lacinia...
-                        </div>
-
                     </div>
                 </div>
 
                 <div class="mdl-cell mdl-cell--4-col">
                     <div class="demo-card-wide mdl-card mdl-shadow--2dp" style="width: 95%;">
-                        <div class="mdl-card__actions mdl-card--border" ng-show="!answer">
-                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent"
-                                    style="width: 100%">
+                        <div class="mdl-card__actions mdl-card--border">
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" ng-click="user_answer(2)" style="width: 100%"  ng-show="state.question">
                                 Choisir
                             </button>
+                            <span ng-show="state.answer_question && answerId == 2"><i class="material-icons">check_circle</i></span>
                         </div>
                         <div class="mdl-card__title">
-                            <h2 class="mdl-card__title-text">Bd du Maréchal Foch</h2>
+                            <h2 class="mdl-card__title-text">{{question.answers[2]}}</h2>
                         </div>
-                        <div class="mdl-card__supporting-text" ng-show="answer">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Mauris sagittis pellentesque lacus eleifend lacinia...
-                        </div>
-
                     </div>
                 </div>
 
@@ -143,12 +130,13 @@
             </div>
 
         </div>
-        <div class="mdl-cell mdl-cell--3-col">
-            <h4><i class="material-icons">looks_one</i>Bob le terrible</h4>
+        <div class="mdl-cell mdl-cell--3-col" ng-show="userAnswers">
+            <h4>Who win ?</h4>
+            <h4 ng-show="userAnswers.length > 0"><i class="material-icons">looks_one</i>{{userAnswers[0]}}</h4>
 
-            <h4><i class="material-icons">looks_two</i>Nicky la fouine</h4>
+            <h4 ng-show="userAnswers.length > 1"><i class="material-icons">looks_two</i>{{userAnswers[1]}}</h4>
 
-            <h4><i class="material-icons">looks_3</i>Michel</h4>
+            <h4 ng-show="userAnswers.length > 2"><i class="material-icons">looks_3</i>{{userAnswers[2]}}</h4>
 
         </div>
     </div>
