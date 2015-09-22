@@ -207,8 +207,10 @@ function processQuestionTimeout() {
 
         if (currentQuestionId+1 === questions.length) {
             console.log(' >> end quizz');
-            io.sockets.emit('end quizz', users);
-            reinitQuizz();
+            setTimeout(function () {
+                io.sockets.emit('end quizz', users);
+                reinitQuizz();
+            }, 5000);
         }
         else {
             setTimeout(sendQuestion, 5000);
