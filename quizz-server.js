@@ -2,7 +2,7 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     app = express(),
     http = require('http'),
-    port = 8000,
+    port = process.env.PORT || 8000,
     _ = require('lodash');
 
 var questionTime = 10; // 10 sec
