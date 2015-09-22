@@ -205,7 +205,7 @@ function processQuestionTimeout() {
         setTimeout(processQuestionTimeout, 1000);
 
     }
-    
+
 }
 
 function processUserAnswers() {
