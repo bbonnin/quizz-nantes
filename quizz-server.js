@@ -192,11 +192,12 @@ io.on('connection', function(socket) {
                 socket.emit('geoloc list', { streets: streets });
             }
         });
+    });
 
-        socket.on('reload_db', function (userAnswer) {
-            console.log(' << reload db');
-            readAQuestion();
-        });
+    socket.on('reload_db', function (userAnswer) {
+        console.log(' << reload db');
+        readAQuestion();
+    });
 
 });
 
