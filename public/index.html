@@ -49,9 +49,9 @@
             <a class="twitter-follow-button"
                href="https://twitter.com/_bruno_b_" data-show-count="false">
                 @_bruno_b_</a> <span class="mdl-layout-spacer"></span>
-        <a class="twitter-follow-button"
-           href="https://twitter.com/padewitte"  data-show-count="false">
-            @padewitte</a></a>
+            <a class="twitter-follow-button"
+               href="https://twitter.com/padewitte" data-show-count="false">
+                @padewitte</a></a>
         </nav>
     </div>
 </header>
@@ -81,14 +81,14 @@
 <div id="waitingQuizzPart" ng-show="state.waiting_quizz">
 
     <div class="connection-card mdl-card mdl-shadow--2dp">
-    <div class="mdl-card__title mdl-card--expand">
-        <h2 class="mdl-card__title-text">Attente de la prochaine question</h2>
+        <div class="mdl-card__title mdl-card--expand">
+            <h2 class="mdl-card__title-text">Attente de la prochaine question</h2>
 
-    </div>
+        </div>
 
-    <!-- MDL Progress Bar with Indeterminate Progress -->
-    <div id="p2" class="mdl-progress mdl-progress-haute mdl-js-progress mdl-progress__indeterminate"
-         style="height: 20px;"></div>
+        <!-- MDL Progress Bar with Indeterminate Progress -->
+        <div id="p2" class="mdl-progress mdl-progress-haute mdl-js-progress mdl-progress__indeterminate"
+             style="height: 20px;"></div>
     </div>
 
 </div>
@@ -98,97 +98,99 @@
     <div class="mdl-grid">
 
     </div>
+
     <div class="mdl-grid">
-        <div class="mdl-cell mdl-cell--9-col">
-            <div class="mdl-grid">
-                <div class="mdl-cell mdl-cell--12-col">
-                    <h4>{{intitule}}
-                    </h4>
-                    <!-- MDL Progress Bar with Buffering -->
-                    <div id="p3" class="mdl-progress mdl-progress-haute mdl-js-progress"
-                         style="width: 100%; height: 30px;"></div>
-
-                </div>
-
-            </div>
-            <div class="mdl-grid">
-                <div class="mdl-cell mdl-cell--4-col">
-                    <div class="demo-card-wide mdl-card mdl-shadow--2dp" style="width: 95%;"
-                         ng-class="{ 'good_card': 0 == goodAnswerId }">
-                        <div class="mdl-card__actions mdl-card--border">
-                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent"
-                                    ng-click="user_answer(0)" style="width: 100%" ng-show="state.question">
-                                Choisir
-                            </button>
-
-                        </div>
-                        <div class="mdl-card__title">
-                            <h2 class="mdl-card__title-text">{{question.answers[0]}}</h2>
-                        </div>
-                        <div class="mdl-card__title" ng-show="state.answer_question && answerId == 0">
-                            <span ><i class="material-icons">check_circle</i></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mdl-cell mdl-cell--4-col">
-                    <div class="demo-card-wide mdl-card mdl-shadow--2dp" style="width: 95%"
-                         ng-class="{ 'good_card': 1 == goodAnswerId }">
-                        <div class="mdl-card__actions mdl-card--border">
-                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent"
-                                    ng-click="user_answer(1)" style="width: 100%" ng-show="state.question">
-                                Choisir
-                            </button>
-
-                        </div>
-                        <div class="mdl-card__title">
-                            <h2 class="mdl-card__title-text">{{question.answers[1]}}</h2>
-
-                        </div>
-                        <div class="mdl-card__title" ng-show="state.answer_question && answerId == 1">
-                            <span ><i class="material-icons">check_circle</i></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mdl-cell mdl-cell--4-col">
-                    <div class="demo-card-wide mdl-card mdl-shadow--2dp" style="width: 95%;"
-                         ng-class="{ 'good_card': 2 == goodAnswerId }">
-                        <div class="mdl-card__actions mdl-card--border">
-                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent"
-                                    ng-click="user_answer(2)" style="width: 100%" ng-show="state.question">
-                                Choisir
-                            </button>
-
-                        </div>
-                        <div class="mdl-card__title">
-                            <h2 class="mdl-card__title-text">{{question.answers[2]}}</h2>
-
-                        </div>
-                        <div class="mdl-card__title" ng-show="state.answer_question && answerId == 2">
-                            <span ><i class="material-icons">check_circle</i></span>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-            <div class="mdl-grid links" ng-show="state.answer_question || state.end_question">
-                <div class="mdl-cell mdl-cell--12-col" ><h4><a href="{{answer}}" target="_blank">{{question.wikipediaUrl}} </a></h4>
-                </div>
-            </div>
+        <div class="mdl-cell mdl-cell--12-col">
+            <h4>{{intitule}}
+            </h4>
+            <!-- MDL Progress Bar with Buffering -->
+            <div id="p3" class="mdl-progress mdl-progress-haute mdl-js-progress"
+                 style="width: 100%; height: 30px;"></div>
 
         </div>
-        <div class="mdl-cell mdl-cell--3-col" ng-show="userAnswers">
-            <h4>Who win ?</h4>
-            <h4 ng-show="userAnswers.length > 0"><i class="material-icons">looks_one</i>{{userAnswers[0]}}</h4>
 
-            <h4 ng-show="userAnswers.length > 1"><i class="material-icons">looks_two</i>{{userAnswers[1]}}</h4>
+    </div>
+    <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--4-col">
+            <div class="demo-card-wide mdl-card mdl-shadow--2dp" style="width: 95%;"
+                 ng-class="{ 'good_card': 0 == goodAnswerId }">
+                <div class="mdl-card__actions mdl-card--border">
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent"
+                            ng-click="user_answer(0)" style="width: 100%" ng-show="state.question">
+                        Choisir
+                    </button>
 
-            <h4 ng-show="userAnswers.length > 2"><i class="material-icons">looks_3</i>{{userAnswers[2]}}</h4>
+                </div>
+                <div class="mdl-card__title">
+                    <h2 class="mdl-card__title-text">{{question.answers[0]}}</h2>
+                </div>
+                <div class="mdl-card__title" ng-show="state.answer_question && answerId == 0">
+                    <span><i class="material-icons">check_circle</i></span>
+                </div>
+            </div>
+        </div>
 
+        <div class="mdl-cell mdl-cell--4-col">
+            <div class="demo-card-wide mdl-card mdl-shadow--2dp" style="width: 95%"
+                 ng-class="{ 'good_card': 1 == goodAnswerId }">
+                <div class="mdl-card__actions mdl-card--border">
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent"
+                            ng-click="user_answer(1)" style="width: 100%" ng-show="state.question">
+                        Choisir
+                    </button>
+
+                </div>
+                <div class="mdl-card__title">
+                    <h2 class="mdl-card__title-text">{{question.answers[1]}}</h2>
+
+                </div>
+                <div class="mdl-card__title" ng-show="state.answer_question && answerId == 1">
+                    <span><i class="material-icons">check_circle</i></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mdl-cell mdl-cell--4-col">
+            <div class="demo-card-wide mdl-card mdl-shadow--2dp" style="width: 95%;"
+                 ng-class="{ 'good_card': 2 == goodAnswerId }">
+                <div class="mdl-card__actions mdl-card--border">
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent"
+                            ng-click="user_answer(2)" style="width: 100%" ng-show="state.question">
+                        Choisir
+                    </button>
+
+                </div>
+                <div class="mdl-card__title">
+                    <h2 class="mdl-card__title-text">{{question.answers[2]}}</h2>
+
+                </div>
+                <div class="mdl-card__title" ng-show="state.answer_question && answerId == 2">
+                    <span><i class="material-icons">check_circle</i></span>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <div class="mdl-grid links" ng-show="userAnswers">
+        <div class="mdl-cell mdl-cell--3-col"><h4>Who win ?</h4></div>
+        <div class="mdl-cell mdl-cell--3-col"><h4 ng-show="userAnswers.length > 0"><i
+                class="material-icons">looks_one</i>{{userAnswers[0]}}</h4></div>
+        <div class="mdl-cell mdl-cell--3-col"><h4 ng-show="userAnswers.length > 1"><i
+                class="material-icons">looks_two</i>{{userAnswers[1]}}</h4></div>
+        <div class="mdl-cell mdl-cell--3-col"><h4 ng-show="userAnswers.length > 2"><i class="material-icons">looks_3</i>{{userAnswers[2]}}
+        </h4></div>
+
+    </div>
+    <div class="mdl-grid links" ng-show="state.answer_question || state.end_question">
+        <div class="mdl-cell mdl-cell--12-col"><h4><a href="{{answer}}" target="_blank">{{question.wikipediaUrl}} </a>
+        </h4>
         </div>
     </div>
+    <div class="mdl-grid links" ng-show="state.answer_question || state.end_question">
+</div>
 </div>
 
 <!------------------------------------------------ Fin quizz ------------------------------------------------>
@@ -214,11 +216,21 @@
     </div>
 </div>
 
-<footer class="mdl-mini-footer" style="background: white">
+<footer class="mdl-mini-footer victory" style="background: white">
     <div class="mdl-mini-footer__middle-section">
         Invitez vos amis à rejoindre la partie...
-            <a href="https://twitter.com/share" class="twitter-share-button" data-text="Venez jouer avec moi et les rues de Nantes" data-lang="fr" data-size="large" data-count="none" data-hashtags="NantesDigitalW">Tweeter</a>
-            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+        <a href="https://twitter.com/share" class="twitter-share-button"
+           data-text="Venez jouer avec moi et les rues de Nantes" data-lang="fr" data-size="large" data-count="none"
+           data-hashtags="NantesDigitalW">Tweeter</a>
+        <script>!function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+            if (!d.getElementById(id)) {
+                js = d.createElement(s);
+                js.id = id;
+                js.src = p + '://platform.twitter.com/widgets.js';
+                fjs.parentNode.insertBefore(js, fjs);
+            }
+        }(document, 'script', 'twitter-wjs');</script>
     </div>
 </footer>
 </body>
