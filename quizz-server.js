@@ -13,7 +13,9 @@ var quizzStarted = false;
 var timeoutQuizzStart = undefined;
 var questionTimeout = undefined;
 var currentQuestionId = -1;
-var questions = [{    
+readAQuestion();
+var questions = [];
+/*var questions = [{
     question: {
         intitule: "blablabla",
         wikipediaUrl: "https://fr.wikipedia.org/w/api.php?action=query&format=json&titles=Jules%20Verne&prop=extracts&explaintext=true&exintro=true",
@@ -45,13 +47,14 @@ var questions = [{
         link: 'https://www.google.fr/',
         streetView: 'http://streetviewing.fr/'
     }
-}];
+}];*/
 var userAnswers = [];
 
 // MongoDB connection
 //
 var quizzdb = undefined;
-var url = 'mongodb://localhost:27017/quizz';
+//var url = 'mongodb://localhost:27017/quizz';
+var url = 'mongodb://quizz:quizz@ds051943.mongolab.com:51943/quizz';
 MongoClient.connect(url, function (err, db) {
     if (!err) {
         console.log(" * Connected correctly to mongodb");
@@ -189,7 +192,11 @@ io.on('connection', function(socket) {
                 socket.emit('geoloc list', { streets: streets });
             }
         });
-    });
+
+        socket.on('reload_db', function (userAnswer) {
+            console.log(' << reload db');
+            readAQuestion();
+        });
 
 });
 
@@ -312,15 +319,34 @@ function getTimeLeft(timeout) {
     return 0;
 }
 
+var findDocuments = function(db, callback) {
+    // Get the documents collection
+    var collection = db.collection('questions');
+    // Find some documents
+    collection.find({}).toArray(function(err, docs) {
+        console.log(docs);
+        questions = docs;
+        callback(docs);
+    });
+}
 
+function readAQuestion(){
+    var MongoClient = require('mongodb').MongoClient;
+
+    // Connection URL
+    var url = 'mongodb://quizz:quizz@ds051943.mongolab.com:51943/quizz';
+    // Use connect method to connect to the Server
+    MongoClient.connect(url, function(err, db) {
+        console.log("Connected correctly to server");
+
+
+                    findDocuments(db, function() {
+                        db.close();
+                    });
+
+    });
+
+}
 /* TODO
-Consumer Key    PLRbAR4aEep1sfWbuGw9cXWBwwRAGBGa
-Consumer Secret     53GrzuxOCfE4JLRH 
 
-http://www.mapquestapi.com/geocoding/v1/address?key=PLRbAR4aEep1sfWbuGw9cXWBwwRAGBGa&inFormat=json&json={"location":{"street": "Rue jules verne","city":"nantes","country":"FR","postalCode":"44000"}}
-
-
-- accès à mongo pour trouver les rues avec le nom du nantais célèbres
-- invoquer le service de mapquest pour avoir la geoloc de chaque rue
-- fabriquer la reponse
 */ 
