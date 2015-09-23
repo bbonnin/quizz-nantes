@@ -118,6 +118,8 @@ quizzApp.controller('quizzController', function($scope, socket) {
             $scope.state.question = true;
             $scope.state.answer_question =false;
             $scope.state.end_question=false;
+            data.searchName = "";
+            $scope.streets = [];
         }else{
             console.log("new question was not expected");
         }
@@ -179,7 +181,7 @@ quizzApp.controller('quizzController', function($scope, socket) {
                 $scope.userAnswers.push(user.nickname);
             });
             $scope.searchName = $scope.question.answers[$scope.goodAnswerId];
-            geoloc_test();
+            $scope.geoloc_test();
 
         }else{
             console.log('question answer was not expected');
@@ -249,8 +251,10 @@ quizzApp.controller('quizzController', function($scope, socket) {
     };
     
     socket.on('geoloc list', function (data) {
+        console.log(' +-+ geoloc list : data=' + JSON.stringify(data));
         $scope.visibleStreetView=-1;
         $scope.streets = data.streets;
+        $scope.setVisibleStreetView(0);
     });
 
     $scope.setVisibleStreetView = function (id) {

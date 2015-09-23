@@ -109,7 +109,7 @@
     </div>
     <div class="mdl-grid">
         <div class="mdl-cell mdl-cell--4-col">
-            <div class="demo-card-wide mdl-card mdl-shadow--2dp" style="width: 95%;"
+            <div class="demo-card-wide mdl-card mini-card mdl-shadow--2dp" style="width: 95%;"
                  ng-class="{ 'good_card': 0 == goodAnswerId }">
                 <div class="mdl-card__actions mdl-card--border">
                     <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent"
@@ -128,7 +128,7 @@
         </div>
 
         <div class="mdl-cell mdl-cell--4-col">
-            <div class="demo-card-wide mdl-card mdl-shadow--2dp" style="width: 95%"
+            <div class="demo-card-wide mdl-card mini-card mdl-shadow--2dp" style="width: 95%"
                  ng-class="{ 'good_card': 1 == goodAnswerId }">
                 <div class="mdl-card__actions mdl-card--border">
                     <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent"
@@ -148,7 +148,7 @@
         </div>
 
         <div class="mdl-cell mdl-cell--4-col">
-            <div class="demo-card-wide mdl-card mdl-shadow--2dp" style="width: 95%;"
+            <div class="demo-card-wide mdl-card mini-card mdl-shadow--2dp" style="width: 95%;"
                  ng-class="{ 'good_card': 2 == goodAnswerId }">
                 <div class="mdl-card__actions mdl-card--border">
                     <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent"
@@ -186,7 +186,7 @@
         </h4>
         </div>
     </div>
-    <div class="mdl-grid links" ng-show="state.answer_question || state.end_question">
+    <div class="mdl-grid links" ng-show="state.end_question">
         <div class="mdl-cell mdl-cell--6-col">
             <table class="mdl-data-table mdl-shadow--2dp">
                 <tr>
@@ -237,8 +237,8 @@
     </div>
 </div>
 
-<footer class="mdl-mini-footer victory" style="background: white">
-    <div class="mdl-mini-footer__middle-section">
+<footer class="mdl-mini-footer victory">
+    <div class="mdl-mini-footer__middle-section" style="margin: auto;">
         Invitez vos amis à rejoindre la partie...
         <a href="https://twitter.com/share" class="twitter-share-button"
            data-text="Venez jouer avec moi et les rues de Nantes" data-lang="fr" data-size="large" data-count="none"

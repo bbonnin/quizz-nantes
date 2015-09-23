@@ -264,10 +264,10 @@ function processQuestionTimeout() {
             setTimeout(function () {
                 io.sockets.emit('end quizz', users);
                 reinitQuizz();
-            }, 5000);
+            }, 15000);
         }
         else {
-            setTimeout(sendQuestion, 5000);
+            setTimeout(sendQuestion, 15000);
         }
     }
     else {
