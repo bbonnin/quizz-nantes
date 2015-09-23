@@ -60,7 +60,7 @@ quizzApp.controller('quizzController', function($scope, socket) {
 
     $scope.reinit_state = function(msg){
         $scope.state = {login_in : true, waiting_quizz : false, question : false, answer_question : false, end_question : false, end_quiz : false};
-        console.log(msg)
+        console.log(msg);
     }
 
     $scope.reinit_state("Init controller");
@@ -102,7 +102,7 @@ quizzApp.controller('quizzController', function($scope, socket) {
             $scope.state.waiting_quizz = false;
             $scope.state.question = true;
         }else{
-            $scope.reinit_state("new question was not expected");
+            console.log("new question was not expected");
         }
     });
 
@@ -164,7 +164,7 @@ quizzApp.controller('quizzController', function($scope, socket) {
             });
 
         }else{
-            $scope.reinit_state('question answer was not expected');
+            console.log('question answer was not expected');
         }
     });
 
@@ -187,14 +187,15 @@ quizzApp.controller('quizzController', function($scope, socket) {
 
 
         }else{
-            $scope.reinit_state('end quizz was not expected');
+            console.log('end quizz was not expected');
         }
     });
 
     $scope.disconnect = function () {
         socket.emit('user disconnect', $scope.nickname);
         $scope.events = [];
-        $scope.reinit_state('user disconnect');
+        $scope.reinit_state('disconnect');
+
     };
 
 
@@ -224,6 +225,7 @@ quizzApp.controller('quizzController', function($scope, socket) {
         $scope.message = data.msg;
         $scope.waitMessage = undefined;
         $scope.events.push({ name: 'quizz started', data: data });
+        $scope.state = {login_in : false, waiting_quizz : true, question : false, answer_question : false, end_question : false, end_quiz : false};
     });
 
     socket.on('quizz not started', function (data) {
