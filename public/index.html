@@ -95,9 +95,6 @@
 
 <!------------------------------------------------ Question ------------------------------------------------>
 <div id="questionPart" ng-show="state.question || state.answer_question || state.end_question">
-    <div class="mdl-grid">
-
-    </div>
 
     <div class="mdl-grid">
         <div class="mdl-cell mdl-cell--12-col">
@@ -190,7 +187,31 @@
         </div>
     </div>
     <div class="mdl-grid links" ng-show="state.answer_question || state.end_question">
-</div>
+        <div class="mdl-cell mdl-cell--6-col">
+            <table class="mdl-data-table mdl-shadow--2dp">
+                <tr>
+                    <td>Rue</td>
+                    <td>Ville</td>
+                    <td>Coord</td>
+                    <td>Strret view</td>
+                </tr>
+                <tr ng-repeat="s in streets">
+                    <td>{{ s.street }}</td>
+                    <td>{{ s.city }}</td>
+                    <td>{{ s.coord }}</td>
+                    <td>
+                        <button class="mdl-button mdl-js-button mdl-button--icon" ng-click="setVisibleStreetView(s.id)">
+                            <i class="material-icons">visibility</i>
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="mdl-cell mdl-cell--6-col">
+            <img ng-repeat="s in streets" ng-show="visibleStreetView==s.id" src="{{getStreetView(s.coord)}}"/>
+        </div>
+
+    </div>
 </div>
 
 <!------------------------------------------------ Fin quizz ------------------------------------------------>

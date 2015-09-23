@@ -175,10 +175,11 @@ quizzApp.controller('quizzController', function($scope, socket) {
             $scope.state.answer_question = false;
             $scope.answers = data.answers;
             $scope.userAnswers = [];
-            //FIXME Est ce vraiment la meme chose ?
             angular.forEach(data.winners, function (user, key) {
                 $scope.userAnswers.push(user.nickname);
             });
+            $scope.searchName = $scope.question.answers[$scope.goodAnswerId];
+            geoloc_test();
 
         }else{
             console.log('question answer was not expected');
