@@ -170,6 +170,7 @@ io.on('connection', function(socket) {
     socket.on('geoloc', function (data) {
         console.log(' << geoloc : ' + data.searchName);
         quizzdb.collection('voies').find({$text:{$search:"\"" + data.searchName + "\""}}).toArray(function (err, docs) {
+        //quizzdb.collection('voies').find({}, {limit:5}).toArray(function (err, docs) {
             if (!err) {
                 console.log(' * street count :' + docs.length);
                 var apiUrl = 'http://www.mapquestapi.com/geocoding/v1/address';
@@ -190,6 +191,9 @@ io.on('connection', function(socket) {
                 }
 
                 socket.emit('geoloc list', { streets: streets });
+            }
+            else {
+                console.log(' !!! err mongodb : ' + err);
             }
         });
     });
