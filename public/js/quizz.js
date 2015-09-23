@@ -200,6 +200,9 @@ quizzApp.controller('quizzController', function($scope, socket) {
 
     //Non managed methods
     $scope.events = [];
+    $scope.searchName = "";
+    $scope.streets = [];
+    $scope.visibleStreetView=-1;
 
     $scope.connect_test = function () {
         $scope.nickname = 'anonymous_' + Date.now();
@@ -217,6 +220,24 @@ quizzApp.controller('quizzController', function($scope, socket) {
 
     $scope.play_test = function () {
         socket.emit('play quizz');
+    };
+
+    $scope.geoloc_test = function () {
+        socket.emit('geoloc', { searchName: $scope.searchName });
+    };
+    
+    socket.on('geoloc list', function (data) {
+        $scope.visibleStreetView=-1;
+        $scope.streets = data.streets;
+    });
+
+    $scope.setVisibleStreetView = function (id) {
+        $scope.visibleStreetView = id;
+    };
+
+    $scope.getStreetView = function (coord) {
+        return 'https://maps.googleapis.com/maps/api/streetview?size=600x300&location=' 
+            + coord.lat + ',' + coord.lng + '&heading=151.78&pitch=-0.76&key=AIzaSyDkkzT98LmL4Xx9sXcHLpn6GbDFDMcSMGQ';
     };
 
     socket.on('quizz started', function (data) {
@@ -238,16 +259,3 @@ quizzApp.controller('quizzController', function($scope, socket) {
     });
     
 });
-
-/*
- socket.on('quizz started', function (data) {
- console.log('quizz started event received : data=' + JSON.stringify(data));
- $scope.message = data.msg;
- $scope.waitMessage = undefined;
- });
-
- socket.on('quizz not started', function (data) {
- console.log('quizz not started event received : data=' + JSON.stringify(data));
- $scope.waitMessage = data.msg;
- });
- */

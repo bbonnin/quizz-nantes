@@ -3,6 +3,8 @@ var express = require('express'),
     app = express(),
     http = require('http'),
     port = process.env.PORT || 8000,
+    MongoClient = require('mongodb').MongoClient,
+    syncRequest = require('sync-request');
     _ = require('lodash');
 
 var questionTime = 10; // 10 sec
@@ -46,6 +48,16 @@ var questions = [{
 }];
 var userAnswers = [];
 
+// MongoDB connection
+//
+var quizzdb = undefined;
+var url = 'mongodb://localhost:27017/quizz';
+MongoClient.connect(url, function (err, db) {
+    if (!err) {
+        console.log(" * Connected correctly to mongodb");
+        quizzdb = db;
+    }
+});
 
 // Express configuration
 //
@@ -150,6 +162,33 @@ io.on('connection', function(socket) {
         else {
             console.log(' * too late for ' + userAnswer.nickname);
         }
+    });
+
+    socket.on('geoloc', function (data) {
+        console.log(' << geoloc : ' + data.searchName);
+        quizzdb.collection('voies').find({$text:{$search:"\"" + data.searchName + "\""}}).toArray(function (err, docs) {
+            if (!err) {
+                console.log(' * street count :' + docs.length);
+                var apiUrl = 'http://www.mapquestapi.com/geocoding/v1/address';
+                var apiQuery = 'key=PLRbAR4aEep1sfWbuGw9cXWBwwRAGBGa&inFormat=json&json={"location":';
+                var streets = [];
+                for (var i=0; i<Math.min(docs.length, 5); i++) {
+                    var json = '{"location":{"street": "' + docs[i].LIBELLE + 
+                        '","city":"' + docs[i].COMMUNE + '","country":"FR"}}';
+                    var qs = { key: 'PLRbAR4aEep1sfWbuGw9cXWBwwRAGBGa', inFormat: 'json', json: json };
+                    var resp = syncRequest('GET', apiUrl, {qs:qs});
+                    var respObj = JSON.parse(resp.getBody().toString());
+                 
+                    streets.push({ id: i, 
+                        street: respObj.results[0].locations[0].street,
+                        city: respObj.results[0].locations[0].adminArea5,
+                        coord: respObj.results[0].locations[0].latLng
+                    });
+                }
+
+                socket.emit('geoloc list', { streets: streets });
+            }
+        });
     });
 
 });
@@ -275,4 +314,13 @@ function getTimeLeft(timeout) {
 
 
 /* TODO
+Consumer Key    PLRbAR4aEep1sfWbuGw9cXWBwwRAGBGa
+Consumer Secret     53GrzuxOCfE4JLRH 
+
+http://www.mapquestapi.com/geocoding/v1/address?key=PLRbAR4aEep1sfWbuGw9cXWBwwRAGBGa&inFormat=json&json={"location":{"street": "Rue jules verne","city":"nantes","country":"FR","postalCode":"44000"}}
+
+
+- accès à mongo pour trouver les rues avec le nom du nantais célèbres
+- invoquer le service de mapquest pour avoir la geoloc de chaque rue
+- fabriquer la reponse
 */ 

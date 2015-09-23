@@ -7,7 +7,8 @@
     "body-parser": "1.14.0",
     "socket.io": "1.2.0",
     "lodash": "3.10.1",
-    "mongodb": "2.0.43"
+    "mongodb": "2.0.43",
+    "sync-request": "2.0.1"
   },
   "main": "quizz-server.js"
 }

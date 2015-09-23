@@ -1,0 +1,59 @@
+<!doctype html>
+<html ng-app="quizzApp">
+
+  <head>
+    <title>Geoloc</title>
+
+    <link rel="stylesheet" href="//storage.googleapis.com/code.getmdl.io/1.0.4/material.indigo-pink.min.css">
+     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+    <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">-->
+    <link rel="stylesheet" href="/css/quizz.css">
+  </head>
+
+  <body ng-controller="quizzController">
+
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-route.min.js"></script>
+    <script src="//cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="//storage.googleapis.com/code.getmdl.io/1.0.4/material.min.js"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
+          
+    <script src="/js/quizz.js"></script>
+
+    <div>
+      <h2 class="mdl-card__title-text">Test Geoloc</h2>
+
+      <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" ng-model="searchName" />
+        <label class="mdl-textfield__label" for="sample1">Nom célèbre...</label>
+      </div>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="geoloc_test()">Search</button>
+
+      <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--6-col">
+          <table class="mdl-data-table mdl-shadow--2dp">
+            <tr><td>Rue</td><td>Ville</td><td>Coord</td><td>Strret view</td></tr>
+            <tr ng-repeat="s in streets">
+              <td>{{ s.street }}</td>
+              <td>{{ s.city }}</td>
+              <td>{{ s.coord }}</td>
+              <td>
+                <button class="mdl-button mdl-js-button mdl-button--icon" ng-click="setVisibleStreetView(s.id)">
+                  <i class="material-icons">visibility</i>
+                </button></td>
+            </tr>
+          </table>
+        </div>
+        <div class="mdl-cell mdl-cell--6-col">
+          <img ng-repeat="s in streets" ng-show="visibleStreetView==s.id" src="{{getStreetView(s.coord)}}"/>
+        </div>
+      </div>
+
+    </div>
+
+  </body>
+</html>
+
