@@ -219,6 +219,9 @@ quizzApp.controller('quizzController', function($scope, socket) {
     $scope.play_test = function () {
         socket.emit('play quizz');
     };
+    $scope.reload_db = function () {
+        socket.emit('reload_db');
+    }
 
     socket.on('quizz started', function (data) {
         console.log(' * quizz started event received : data=' + JSON.stringify(data));

@@ -154,6 +154,11 @@ io.on('connection', function(socket) {
         }
     });
 
+    socket.on('reload_db', function (userAnswer) {
+        console.log(' << reload db');
+        readAQuestion();
+    });
+
 });
 
 //----------------------------------------------
