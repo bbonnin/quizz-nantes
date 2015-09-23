@@ -66,6 +66,7 @@ quizzApp.controller('quizzController', function($scope, socket) {
     $scope.reinit_state("Init controller");
 
     $scope.nickname;
+    $scope.answer = "";
     $scope.question = {};
     $scope.userAnswers = [];
     $scope.answerId = -1;
@@ -93,7 +94,21 @@ quizzApp.controller('quizzController', function($scope, socket) {
             console.log('Showing question ' + JSON.stringify(data));
             $scope.goodAnswerId = -1;
             $scope.answerId = -1;
+
+            //Hidding answers
+            $scope.answer = decodeURIComponent(data.question.wikipediaUrl);
+
+            $scope.intitule = '';
+            var wordsToRemove = data.question.removeTerms;
             $scope.question = data.question;
+            for (var i=0; i<wordsToRemove.length; i++) {
+                var re = new RegExp(wordsToRemove[i], 'gi');
+                $scope.question.intitule = $scope.question.intitule.replace(re,"xxxxx");;
+            }
+
+            $scope.intitule = $scope.question.intitule;
+
+
             $scope.userAnswers = [];
             //Update progress bar
             $scope.update_time_left(100);
@@ -101,6 +116,8 @@ quizzApp.controller('quizzController', function($scope, socket) {
             //Updating the page status
             $scope.state.waiting_quizz = false;
             $scope.state.question = true;
+            $scope.state.answer_question =false;
+            $scope.state.end_question=false;
         }else{
             console.log("new question was not expected");
         }

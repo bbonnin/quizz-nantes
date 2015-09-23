@@ -41,20 +41,17 @@
     <div class="mdl-layout__header-row">
         <span class="mdl-layout-title">Mille-Sabords.cleverapp.io</span>
 
-        <div class="mdl-layout-spacer"></div>
-        <span class="mdl-layout-title">
-        <a class="twitter-follow-button"
-           href="https://twitter.com/_bruno_b_" data-show-count="false">
-            @_bruno_b_</a></span>
-        <span class="mdl-layout-title">
-        <a class="twitter-follow-button"
-           href="https://twitter.com/padewitte"  data-show-count="false">
-            @padewitte</a></span>
+        <span class="mdl-layout-spacer"></span>
 
 
         <nav class="mdl-navigation mdl-layout--large-screen-only">
 
-            <a class="mdl-navigation__link" href="" ng-click="disconnect()">Quitter</a>
+            <a class="twitter-follow-button"
+               href="https://twitter.com/_bruno_b_" data-show-count="false">
+                @_bruno_b_</a> <span class="mdl-layout-spacer"></span>
+        <a class="twitter-follow-button"
+           href="https://twitter.com/padewitte"  data-show-count="false">
+            @padewitte</a></a>
         </nav>
     </div>
 </header>
@@ -105,7 +102,7 @@
         <div class="mdl-cell mdl-cell--9-col">
             <div class="mdl-grid">
                 <div class="mdl-cell mdl-cell--12-col">
-                    <h4>{{question.intitule}}
+                    <h4>{{intitule}}
                     </h4>
                     <!-- MDL Progress Bar with Buffering -->
                     <div id="p3" class="mdl-progress mdl-progress-haute mdl-js-progress"
@@ -123,10 +120,13 @@
                                     ng-click="user_answer(0)" style="width: 100%" ng-show="state.question">
                                 Choisir
                             </button>
-                            <span ng-show="state.answer_question && answerId == 0"><i class="material-icons">check_circle</i></span>
+
                         </div>
                         <div class="mdl-card__title">
                             <h2 class="mdl-card__title-text">{{question.answers[0]}}</h2>
+                        </div>
+                        <div class="mdl-card__title" ng-show="state.answer_question && answerId == 0">
+                            <span ><i class="material-icons">check_circle</i></span>
                         </div>
                     </div>
                 </div>
@@ -139,10 +139,14 @@
                                     ng-click="user_answer(1)" style="width: 100%" ng-show="state.question">
                                 Choisir
                             </button>
-                            <span ng-show="state.answer_question && answerId == 1"><i class="material-icons">check_circle</i></span>
+
                         </div>
                         <div class="mdl-card__title">
                             <h2 class="mdl-card__title-text">{{question.answers[1]}}</h2>
+
+                        </div>
+                        <div class="mdl-card__title" ng-show="state.answer_question && answerId == 1">
+                            <span ><i class="material-icons">check_circle</i></span>
                         </div>
                     </div>
                 </div>
@@ -155,15 +159,23 @@
                                     ng-click="user_answer(2)" style="width: 100%" ng-show="state.question">
                                 Choisir
                             </button>
-                            <span ng-show="state.answer_question && answerId == 2"><i class="material-icons">check_circle</i></span>
+
                         </div>
                         <div class="mdl-card__title">
                             <h2 class="mdl-card__title-text">{{question.answers[2]}}</h2>
+
+                        </div>
+                        <div class="mdl-card__title" ng-show="state.answer_question && answerId == 2">
+                            <span ><i class="material-icons">check_circle</i></span>
                         </div>
                     </div>
                 </div>
 
 
+            </div>
+            <div class="mdl-grid links" ng-show="state.answer_question || state.end_question">
+                <div class="mdl-cell mdl-cell--12-col" ><h4><a href="{{answer}}" target="_blank">{{question.wikipediaUrl}} </a></h4>
+                </div>
             </div>
 
         </div>

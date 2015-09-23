@@ -2,7 +2,7 @@
 
 {
     "question" : {
-    "intitule" : "Aristide Briand, né le 28 mars 1862 à Nantes1 et mort le 7 mars 1932 à Paris, est un homme politique et diplomate français qui a été onze fois Président du Conseil et vingt fois ministre. Il a joué un rôle essentiel dans les relations internationales après la Première Guerre mondiale. Il reçoit le Prix Nobel de la paix en 1926, conjointement avec Gustav Stresemann, pour son action en faveur de la réconciliation entre la France et l'Allemagne (accords de Locarno, 1925). En 1928, poursuivant son rêve de paix par la sécurité collective, dont l'axe serait la Société des Nations",
+    "intitule" : "Aristide Briand, né le 28 mars 1862 à Nantes et mort le 7 mars 1932 à Paris, est un homme politique et diplomate français qui a été onze fois Président du Conseil et vingt fois ministre. Il a joué un rôle essentiel dans les relations internationales après la Première Guerre mondiale. Il reçoit le Prix Nobel de la paix en 1926, conjointement avec Gustav Stresemann, pour son action en faveur de la réconciliation entre la France et l'Allemagne (accords de Locarno, 1925). En 1928, poursuivant son rêve de paix par la sécurité collective, dont l'axe serait la Société des Nations",
         "wikipediaUrl" : "https://fr.wikipedia.org/wiki/Aristide_Briand",
         "removeTerms" : [
         "Aristide",
@@ -27,6 +27,7 @@
         "removeTerms" : [
         "Juchault",
         "Lamoricière",
+        "La Moricière",
         "Moricière"
     ],
         "answers" : [
@@ -103,11 +104,11 @@
 }
 {
     "question" : {
-    "intitule" : "Pierre1 Marie René Ernest Waldeck-Rousseau, né à Nantes (Loire-Atlantique) le 2 décembre 1846 et mort à Corbeil-Essonnes le 10 août 1904, est un homme d'État libéral français. Il est célèbre pour avoir participé à la légalisation des syndicats (loi Waldeck-Rousseau de 1884) ainsi que la loi 1901 sur les associations. En juin 1899, il est appelé par le président Émile Loubet à former un gouvernement alors que l'Affaire Dreyfus bat son plein. ",
+    "intitule" : "Pierre Marie René Ernest Waldeck-Rousseau, né à Nantes (Loire-Atlantique) le 2 décembre 1846 et mort à Corbeil-Essonnes le 10 août 1904, est un homme d'État libéral français. Il est célèbre pour avoir participé à la légalisation des syndicats (loi Waldeck-Rousseau de 1884) ainsi que la loi 1901 sur les associations. En juin 1899, il est appelé par le président Émile Loubet à former un gouvernement alors que l'Affaire Dreyfus bat son plein. ",
         "wikipediaUrl" : "https://fr.wikipedia.org/wiki/Pierre_Waldeck-Rousseau",
         "removeTerms" : [
         "Waldeck",
-        "Rousseau"
+        "Rousseau",
     ],
         "answers" : [
         "Place Waldeck Rousseau",
@@ -124,7 +125,7 @@
 {
     "question" : {
     "intitule" : "Émile Henry Mellinet, né le 1er juin 1798 à Nantes et mort le 20 janvier 1894 dans la même ville, est un militaire français, général à partir de 1850. Il prend définitivement sa retraite à Nantes par décret du 1er septembre 18782. Il devient l'une des figures les plus populaires de la vie locale : il favorise l'épanouissement des Arts et Lettres, joue au théâtre de Compiègne ; passionné de musique, il contribue à l'organisation des musiques régimentaires et compose quelques morceaux qui sont très goûtés des Nantais ; bibliophile, il donne au ministère de la Guerre une importante collection d'ouvrages militaires et, à la bibliothèque de Nantes, un fonds précieux d'autographes",
-        "wikipediaUrl" : "https://fr.wikipedia.org/wiki/%C3%89mile_Mellinet",
+        "wikipediaUrl" : "https://fr.wikipedia.org/wiki/émile_Mellinet",
         "removeTerms" : [
         "Mellinet"
     ],
