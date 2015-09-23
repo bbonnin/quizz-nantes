@@ -11,7 +11,9 @@ var quizzStarted = false;
 var timeoutQuizzStart = undefined;
 var questionTimeout = undefined;
 var currentQuestionId = -1;
-var questions = [{    
+readAQuestion();
+var questions = [];
+/*var questions = [{
     question: {
         intitule: "blablabla",
         wikipediaUrl: "https://fr.wikipedia.org/w/api.php?action=query&format=json&titles=Jules%20Verne&prop=extracts&explaintext=true&exintro=true",
@@ -43,7 +45,7 @@ var questions = [{
         link: 'https://www.google.fr/',
         streetView: 'http://streetviewing.fr/'
     }
-}];
+}];*/
 var userAnswers = [];
 
 
@@ -273,6 +275,33 @@ function getTimeLeft(timeout) {
     return 0;
 }
 
+var findDocuments = function(db, callback) {
+    // Get the documents collection
+    var collection = db.collection('questions');
+    // Find some documents
+    collection.find({}).toArray(function(err, docs) {
+        console.log(docs);
+        questions = docs;
+        callback(docs);
+    });
+}
 
+function readAQuestion(){
+    var MongoClient = require('mongodb').MongoClient;
+
+    // Connection URL
+    var url = 'mongodb://quizz:quizz@ds051943.mongolab.com:51943/quizz';
+    // Use connect method to connect to the Server
+    MongoClient.connect(url, function(err, db) {
+        console.log("Connected correctly to server");
+
+
+                    findDocuments(db, function() {
+                        db.close();
+                    });
+
+    });
+
+}
 /* TODO
 */ 
