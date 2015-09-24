@@ -244,7 +244,7 @@ function sendQuestion() {
     });
 
     setTimeout(processQuestionTimeout, 1000);
-    questionTimeout = { start: Date.now(), delay: questionTime * 1000 };
+    questionTimeout = { start: Date.now(), delay: questionTime * 2000 };
 }
 
 function processQuestionTimeout() {
@@ -316,7 +316,7 @@ function processUserAnswers() {
 function getTimeLeft(timeout) {
     if (timeout) {
         var now = Date.now();
-        var timeleft = Math.ceil((timeout.start + timeout.delay - now) / 1000);
+        var timeleft = Math.ceil((timeout.start + timeout.delay - now) / 2000);
         console.log(' * timeleft: ' + timeleft + ' sec');
         //return Math.ceil((timeout._idleStart + timeout._idleTimeout - Date.now()) / 1000);
         return timeleft;
