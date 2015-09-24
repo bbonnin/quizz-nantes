@@ -72,6 +72,7 @@ quizzApp.controller('quizzController', function($scope, socket) {
     $scope.answerId = -1;
     $scope.goodAnswerId = -1;
     $scope.winner;
+    $scope.bravo = false;
 
     //$scope.progress = 0;
 
@@ -94,9 +95,7 @@ quizzApp.controller('quizzController', function($scope, socket) {
             console.log('Showing question ' + JSON.stringify(data));
             $scope.goodAnswerId = -1;
             $scope.answerId = -1;
-
-            //Hidding answers
-            $scope.answer = decodeURIComponent(data.question.wikipediaUrl);
+            $scope.bravo = false;
 
             $scope.intitule = '';
             var wordsToRemove = data.question.removeTerms;
@@ -118,7 +117,8 @@ quizzApp.controller('quizzController', function($scope, socket) {
             $scope.state.question = true;
             $scope.state.answer_question =false;
             $scope.state.end_question=false;
-            data.searchName = "";
+            $scope.searchName = $scope.question.wikipediaUrlContent;
+            $scope.geoloc_test();
             $scope.streets = [];
         }else{
             console.log("new question was not expected");
@@ -161,7 +161,9 @@ quizzApp.controller('quizzController', function($scope, socket) {
             //TODO Desactivate answares
             $scope.state.question = false;
             $scope.state.answer_question = true;
-
+            if($scope.question.answers[id] ===  $scope.searchName){
+                $scope.bravo = true;
+            }
         }
     };
 
@@ -170,6 +172,8 @@ quizzApp.controller('quizzController', function($scope, socket) {
         $scope.events.push({ name: 'question answer', data: data });
         if($scope.state.question || $scope.state.answer_question) {
             console.log('Question is over ' + JSON.stringify(data));
+
+
             $scope.update_time_left(0);
             $scope.goodAnswerId = data.answer.id;
             $scope.state.question = false;
@@ -180,8 +184,7 @@ quizzApp.controller('quizzController', function($scope, socket) {
             angular.forEach(data.winners, function (user, key) {
                 $scope.userAnswers.push(user.nickname);
             });
-            $scope.searchName = $scope.question.answers[$scope.goodAnswerId];
-            $scope.geoloc_test();
+
 
         }else{
             console.log('question answer was not expected');
