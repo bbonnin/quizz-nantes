@@ -55,7 +55,7 @@
         </nav>
     </div>
 </header>
-
+<main>
 <!------------------------------------------------ Page de login ------------------------------------------------>
 <div id="loginPart" ng-show="state.login_in">
     <div class="connection-card mdl-card mdl-shadow--2dp">
@@ -148,8 +148,8 @@
         </div>
     </div>
     <div class="mdl-grid links" ng-show="state.answer_question || state.end_question">
-        <div class="mdl-cell mdl-cell--5-col">
-            <table class="mdl-data-table mdl-shadow--2dp">
+        <div class="mdl-cell mdl-cell--6-col ">
+            <table class="mdl-data-table mdl-shadow--2dp" style="width: 100%;">
                 <tr>
                     <td>Rue</td>
                     <td>Ville</td>
@@ -166,8 +166,8 @@
                 </tr>
             </table>
         </div>
-        <div class="mdl-cell mdl-cell--7-col">
-            <img ng-repeat="s in streets" style="width: 95%;" ng-show="visibleStreetView==s.id" src="{{getStreetView(s.coord)}}"/>
+        <div class="mdl-cell mdl-cell--6-col">
+            <img ng-repeat="s in streets" style="width: 100%;" ng-show="visibleStreetView==s.id" src="{{getStreetView(s.coord)}}"/>
         </div>
 
     </div>
@@ -195,9 +195,11 @@
              style="height: 20px;"></div>
     </div>
 </div>
-
-<footer class="mdl-mini-footer victory wrapper">
-    <div class="mdl-mini-footer__middle-section" style="margin: auto;">
+</main>
+<footer>
+    <div class="victory mdl-grid">
+        <div class="mdl-cell mdl-cell--3-col"></div>
+        <div class="mdl-cell mdl-cell--6-col">
         Invitez vos amis à rejoindre la partie...
         <a href="https://twitter.com/share" class="twitter-share-button"
            data-text="Venez jouer avec moi et les rues de Nantes" data-lang="fr" data-size="large" data-count="none"
@@ -212,6 +214,7 @@
             }
         }(document, 'script', 'twitter-wjs');</script>
     </div>
+        </div>
 </footer>
 </body>
 </html>
