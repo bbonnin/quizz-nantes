@@ -36,6 +36,8 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
 <script src="/js/quizz.js"></script>
 
+<img ng-show="state.login_in" class="bg2" src="/img/elephantnantes_peinture.jpg"/>
+
 <!------------------------------------------------ HEADER ------------------------------------------------>
 <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
@@ -58,7 +60,9 @@
 <main>
 <!------------------------------------------------ Page de login ------------------------------------------------>
 <div id="loginPart" ng-show="state.login_in">
-    <div class="connection-card mdl-card mdl-shadow--2dp">
+    <div class="login-background-image"></div>
+    <div class="content">
+      <div class="connection-card mdl-card mdl-shadow--2dp">
         <div class="mdl-card__title mdl-card--expand">
             <h2 class="mdl-card__title-text">Bienvenue mille-sabords !</h2>
         </div>
@@ -74,6 +78,7 @@
                        value="Connexion"/>
             </div>
         </form>
+      </div>
     </div>
 </div>
 
@@ -196,7 +201,7 @@
     </div>
 </div>
 </main>
-<footer>
+<footer style="z-index:3;">
     <div class="victory mdl-grid">
         <div class="mdl-cell mdl-cell--3-col"></div>
         <div class="mdl-cell mdl-cell--6-col">
