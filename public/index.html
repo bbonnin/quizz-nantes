@@ -27,7 +27,7 @@
     }(document, "script", "twitter-wjs"));</script>
 </head>
 
-<body ng-controller="quizzController">
+<body ng-controller="quizzController" style="background-color: #f5f5f5 !important;">
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-route.min.js"></script>
 <script src="//cdn.socket.io/socket.io-1.2.0.js"></script>
@@ -39,6 +39,7 @@
 <div id="wrapper">
   <img ng-show="state.login_in" class="bg2" src="/img/elephantnantes_peinture2.jpg"/>
   <img ng-show="state.waiting_quizz" class="bg2" src="/img/Anneaux-de-Buren-Nantes.jpg"/>
+  <img ng-show="state.end_quiz" class="bg2" style="z-index:-1;" src="/img/Passage-Pommeraye2.jpg"/>
 </div>
 
 <!------------------------------------------------ HEADER ------------------------------------------------>
@@ -105,8 +106,10 @@
 <div id="questionPart" ng-show="state.question">
 
     <div class="mdl-grid">
-        <div class="mdl-cell mdl-cell--12-col">
-            <h5>{{intitule}}
+        <div class="mdl-cell mdl-cell--12-col mdl-color--white mdl-shadow--2dp">
+            <i  style="margin:25px 0 0 25px; font-size:48px; color:darkgray" class="material-icons">help_outline</i>
+            <h5 style="margin:25px;">
+              {{intitule}}
             </h5>
             <!-- MDL Progress Bar with Buffering -->
             <div id="p3" class="mdl-progress mdl-progress-haute mdl-js-progress"
@@ -137,17 +140,24 @@
                     </button>
         </div>
     </div>
-</div>
-    <div id="questionAnswers" ng-show="state.answer_question || state.end_question">
-    <div class="mdl-grid links" ng-show="userAnswers">
-        <div class="mdl-cell mdl-cell--3-col"><h4>Qui a gagné ?</h4></div>
-        <div class="mdl-cell mdl-cell--3-col"><h4 ng-show="userAnswers.length > 0"><i
-                class="material-icons">looks_one</i>{{userAnswers[0]}}</h4></div>
-        <div class="mdl-cell mdl-cell--3-col"><h4 ng-show="userAnswers.length > 1"><i
-                class="material-icons">looks_two</i>{{userAnswers[1]}}</h4></div>
-        <div class="mdl-cell mdl-cell--3-col"><h4 ng-show="userAnswers.length > 2"><i class="material-icons">looks_3</i>{{userAnswers[2]}}
-        </h4></div>
 
+  </div>
+
+  <!-- --------------------------------------------------- Response --------------------------------------------- -->
+
+    <div id="questionAnswers" ng-show="state.answer_question || state.end_question">
+    <div class="mdl-grid" ng-show="userAnswers">
+      <div class="mdl-cell mdl-cell--12-col mdl-color--white mdl-shadow--2dp"> 
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--3-col"><h4>Qui a gagné ?</h4></div>
+          <div class="mdl-cell mdl-cell--3-col"><h4 ng-show="userAnswers.length > 0"><i
+                class="material-icons">looks_one</i>{{userAnswers[0]}}</h4></div>
+          <div class="mdl-cell mdl-cell--3-col"><h4 ng-show="userAnswers.length > 1"><i
+                class="material-icons">looks_two</i>{{userAnswers[1]}}</h4></div>
+          <div class="mdl-cell mdl-cell--3-col"><h4 ng-show="userAnswers.length > 2"><i class="material-icons">looks_3</i>{{userAnswers[2]}}
+        </h4></div>
+        </div>
+      </div>
     </div>
     <div class="mdl-grid links" ng-show="state.answer_question || state.end_question">
         <div class="mdl-cell mdl-cell--12-col">
@@ -157,6 +167,7 @@
     </div>
     <div class="mdl-grid links" ng-show="state.answer_question || state.end_question">
         <div class="mdl-cell mdl-cell--6-col ">
+          <h5>Où trouve-t-on des lieux ainsi nommés dans Nantes et ses environs ?</h5>
             <table class="mdl-data-table mdl-shadow--2dp" style="width: 100%;">
                 <tr>
                     <td>Rue</td>
