@@ -169,8 +169,9 @@ io.on('connection', function(socket) {
 
     socket.on('geoloc', function (data) {
         console.log(' << geoloc : ' + data.searchName);
-        var idx = data.searchName.indexOf(' ') == -1 ? 0 : data.searchName.indexOf(' ')
-        var searchTerms = data.searchName.substring(idx);
+        //var idx = data.searchName.indexOf(' ') == -1 ? 0 : data.searchName.indexOf(' ')
+        //var searchTerms = data.searchName.substring(idx);
+        var searchTerms = data.searchName;
         console.log(' << geoloc : searchTerms=' + searchTerms);
         quizzdb.collection('voies').find({$text:{$search:"\"" + searchTerms + "\""}}).toArray(function (err, docs) {
         //quizzdb.collection('voies').find({}, {limit:5}).toArray(function (err, docs) {
