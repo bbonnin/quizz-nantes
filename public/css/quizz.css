@@ -106,10 +106,19 @@ main {
 
 .bg2 {
     width: 100%;
+    height: 100%;
     position: absolute;
     top: 0;
     left: 0;
     z-index: 1;
+    overflow-x:hidden;
+    overflow-y:hidden;
+}
+
+#wrapper {
+    height:30%;
+    overflow:hidden;
+    width: 3000px;
 }
 
 .background-image {
