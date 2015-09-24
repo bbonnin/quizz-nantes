@@ -40,6 +40,7 @@
   <img ng-show="state.login_in" class="bg2" src="/img/elephantnantes_peinture2.jpg"/>
   <img ng-show="state.waiting_quizz" class="bg2" src="/img/Anneaux-de-Buren-Nantes.jpg"/>
   <img ng-show="state.end_quiz" class="bg2" style="z-index:-1;" src="/img/Passage-Pommeraye2.jpg"/>
+    <img ng-show="state.question || state.answer_question || state.end_question " class="bg2" style="z-index:-1;" src="/img/la-loire-nantes.jpg" />
 </div>
 
 <!------------------------------------------------ HEADER ------------------------------------------------>
@@ -159,14 +160,14 @@
         </div>
       </div>
     </div>
-    <div class="mdl-grid links" ng-show="state.answer_question || state.end_question">
+    <div class="mdl-grid links" ng-show="state.answer_question || state.end_question" style="background: white">
         <div class="mdl-cell mdl-cell--12-col">
             <h4 ng-show="!bravo">Ooops, la bonnne réponse était : <a href="{{question.wikipediaUrl}}" target="_blank">{{question.wikipediaUrlContent}} </a></h4>
             <h4 ng-show="bravo">BRAVO ! C'était bien : <a href="{{question.wikipediaUrl}}" target="_blank">{{question.wikipediaUrlContent}} </a></h4>
         </div>
     </div>
     <div class="mdl-grid links" ng-show="state.answer_question || state.end_question">
-        <div class="mdl-cell mdl-cell--6-col ">
+        <div class="mdl-cell mdl-cell--6-col mdl-color--white mdl-shadow--2dp">
           <h5>Où trouve-t-on des lieux ainsi nommés dans Nantes et ses environs ?</h5>
             <table class="mdl-data-table mdl-shadow--2dp" style="width: 100%;">
                 <tr>
