@@ -1,0 +1,144 @@
+.connection-card, .wait-card {
+    text-align: center;
+    margin: 10% auto;
+}
+
+.connection-card.mdl-card {
+    width: 320px;
+    height: 220px;
+
+}
+
+.mini-card {
+    height: 160px;
+    min-height: 140px;
+}
+
+.connection-card > .mdl-card__title {
+    color: #fff;
+    background-color: #3E4EB8;
+}
+
+.wait-card.mdl-card {
+    max-width: 600px;
+    color: #fff;
+    background: #3E4EB8;
+}
+
+.wait-card > .mdl-card__actions {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.wait-card > .mdl-card__title {
+  align-items: flex-start;
+}
+
+.wait-card > .mdl-card__title > h4 {
+  margin-top: 0;
+}
+
+.wait-card > .mdl-card__actions {
+  display: flex;
+  box-sizing:border-box;
+  align-items: center;
+}
+
+.wait-card > .mdl-card__title,
+.wait-card > .mdl-card__actions,
+.wait-card > .mdl-card__actions > .mdl-button {
+  color: #fff;
+}
+.mdl-progress-haute > .mdl-progress {
+    height: 30px;
+}
+
+.good_card{
+    background: #3f51b5;
+}
+
+.links{
+    border-top : 9px solid #3f51b5;
+}
+.victory{
+    background : #3f51b5;
+    color: rgb(255, 255, 255);
+}
+
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -142px; /* the bottom margin is the negative value of the footer's height */
+}
+.valign-wrapper {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    /* display: flex; */
+    -webkit-flex-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+.bg {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+}
+
+.bg2 {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    overflow-x:hidden;
+    overflow-y:hidden;
+}
+
+#wrapper {
+    height:30%;
+    overflow:hidden;
+    width: 3000px;
+}
+
+.background-image {
+  /*position: fixed;*/
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+
+  width: 100%;
+  position: absolute;
+
+  display: block;
+  background-image: url('/img/elephantnantes.jpg');
+  /*width: 1280px;*/
+  /*height: 640px;*/
+
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+}
