@@ -318,9 +318,9 @@ function generatePossibleAnswers(){
     falseresponsesC.push("Charles de Gaule");
     falseresponsesC.push("Louis XIV");
     var possibleAnswers = [];
-    possibleAnswers.push(falseresponsesA[Math.ceil(5* Math.random())]);
-    possibleAnswers.push(falseresponsesB[Math.ceil(5* Math.random())]);
-    possibleAnswers.push(falseresponsesC[Math.ceil(5* Math.random())]);
+    possibleAnswers.push(falseresponsesA[Math.ceil(5* Math.random())-1]);
+    possibleAnswers.push(falseresponsesB[Math.ceil(5* Math.random())-1]);
+    possibleAnswers.push(falseresponsesC[Math.ceil(5* Math.random())-1]);
     return possibleAnswers;
 
 }
@@ -337,7 +337,7 @@ function readAQuestion(){
     for(i = 0; i < respObj.length; i ++){
         console.log("µµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµ");
         console.log(JSON.stringify(respObj[i]));
-        var answerPosition = Math.ceil(3* Math.random());
+        var answerPosition = Math.ceil(3* Math.random()) - 1;
         console.log(answerPosition);
         var possibleAnswers = generatePossibleAnswers();
         possibleAnswers[answerPosition] = respObj[i].answer;
