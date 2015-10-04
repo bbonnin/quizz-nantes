@@ -13,41 +13,9 @@ var quizzStarted = false;
 var timeoutQuizzStart = undefined;
 var questionTimeout = undefined;
 var currentQuestionId = -1;
-readAQuestion();
 var questions = [];
-/*var questions = [{
-    question: {
-        intitule: "blablabla",
-        wikipediaUrl: "https://fr.wikipedia.org/w/api.php?action=query&format=json&titles=Jules%20Verne&prop=extracts&explaintext=true&exintro=true",
-        removeTerms: ["jules", "verne"],
-        answers: [
-            "Jules Verne",
-            "Jules Ferry",
-            "Jules IenneDeLegumes"
-        ]
-    },
-    answer: {
-        id: 0,
-        link: 'https://www.google.fr/',
-        streetView: 'http://streetviewing.fr/'
-    }
-}, {
-    question: {
-        intitule: "blobloblo",
-        wikipediaUrl: "https://fr.wikipedia.org/w/api.php?action=query&format=json&titles=Marc%20Caro&prop=extracts&explaintext=true&exintro=true",
-        removeTerms: ["marc", "caro"],
-        answers: [
-            "Marc Caro",
-            "Marc Unbut",
-            "Marc DeCafé"
-        ]
-    },
-    answer: {
-        id: 0,
-        link: 'https://www.google.fr/',
-        streetView: 'http://streetviewing.fr/'
-    }
-}];*/
+readAQuestion();
+
 var userAnswers = [];
 
 // MongoDB connection
@@ -328,33 +296,68 @@ function getTimeLeft(timeout) {
     return 0;
 }
 
-var findDocuments = function(db, callback) {
-    // Get the documents collection
-    var collection = db.collection('questions');
-    // Find some documents
-    collection.find({}).toArray(function(err, docs) {
-        console.log(docs);
-        questions = docs;
-        callback(docs);
-    });
+
+
+function generatePossibleAnswers(){
+    var falseresponsesA = [];
+    falseresponsesA.push("Maréchal Foch");
+    falseresponsesA.push("Ursule Chevalier");
+    falseresponsesA.push("Colette Audry");
+    falseresponsesA.push("Alexandre Dumas");
+    falseresponsesA.push("Marc Sangnier");
+    var falseresponsesB = [];
+    falseresponsesB.push("Van Iseghem");
+    falseresponsesB.push("Alfred de Musset");
+    falseresponsesB.push("Corneille");
+    falseresponsesB.push("Maréchal Joffre");
+    falseresponsesB.push("Urvoy de Saint Bedan");
+    var falseresponsesC = [];
+    falseresponsesC.push("Beethoven");
+    falseresponsesC.push("Alphonse Daudet");
+    falseresponsesC.push("Alexander Fleming");
+    falseresponsesC.push("Charles de Gaule");
+    falseresponsesC.push("Louis XIV");
+    var possibleAnswers = [];
+    possibleAnswers.push(falseresponsesA[Math.ceil(5* Math.random())]);
+    possibleAnswers.push(falseresponsesB[Math.ceil(5* Math.random())]);
+    possibleAnswers.push(falseresponsesC[Math.ceil(5* Math.random())]);
+    return possibleAnswers;
+
 }
 
 function readAQuestion(){
-    var MongoClient = require('mongodb').MongoClient;
-
-    // Connection URL
-    var url = 'mongodb://quizz:quizz@ds051943.mongolab.com:51943/quizz';
-    // Use connect method to connect to the Server
-    MongoClient.connect(url, function(err, db) {
-        console.log("Connected correctly to server");
 
 
-                    findDocuments(db, function() {
-                        db.close();
-                    });
+    console.log("#######################################");
+    var quizzdataurl = 'https://quizznantes.apispark.net:443/v1/feuille_1s/';
+    var resp = syncRequest('GET', quizzdataurl);
+    var respObj = JSON.parse(resp.getBody().toString());
 
-    });
+    questions = [];
+    for(i = 0; i < respObj.length; i ++){
+        console.log("µµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµ");
+        console.log(JSON.stringify(respObj[i]));
+        var answerPosition = Math.ceil(3* Math.random());
+        console.log(answerPosition);
+        var possibleAnswers = generatePossibleAnswers();
+        possibleAnswers[answerPosition] = respObj[i].answer;
+        console.log(possibleAnswers);
 
+        var question = {
+            "question": {
+                "intitule": respObj[i].question,
+                "wikipediaUrl": respObj[i].wikipediaUrl,
+                "wikipediaUrlContent": respObj[i].answer,
+                "removeTerms": respObj[i].removeTerms.split(", "),
+                "answers": possibleAnswers
+            }
+            ,
+            "answer": {
+                "id": answerPosition
+            }
+        };
+        questions.push(question);
+    }
 }
 /* TODO
 
